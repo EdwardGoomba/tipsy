@@ -22,6 +22,7 @@ class CalculatorViewController: UIViewController {
         zeroPctButton.isSelected = false
         tenPctButton.isSelected = false
         twentyPctButton.isSelected = false
+        billTextField.endEditing(true)
 
         let tipSelected = sender.currentTitle ?? "10%"
         if tipSelected == "0%" {
@@ -42,8 +43,12 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        print(tipPctSelected)
-        print(splitNumber)
+        let billTotal = Double(billTextField.text ?? "0.0")
+        let tipAmount = (billTotal! * tipPctSelected)
+        let billPlusTip = billTotal! + tipAmount
+        
+        let splitAmount = billPlusTip / splitNumber
+        print(String(format: "%.2f", splitAmount))
     }
 }
 

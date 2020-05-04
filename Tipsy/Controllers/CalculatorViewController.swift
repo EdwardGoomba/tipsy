@@ -16,6 +16,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var splitNumberLabel: UILabel!
     
     var tipPctSelected = 0.1
+    var splitNumber = 2.0
     
     @IBAction func tipChanged(_ sender: UIButton) {
         zeroPctButton.isSelected = false
@@ -36,10 +37,13 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        splitNumberLabel.text = String(format: "%.0f", sender.value)
+        splitNumber = sender.value
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
         print(tipPctSelected)
+        print(splitNumber)
     }
 }
 

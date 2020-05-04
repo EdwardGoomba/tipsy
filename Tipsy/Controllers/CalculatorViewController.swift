@@ -17,6 +17,8 @@ class CalculatorViewController: UIViewController {
     
     var tipPctSelected = 0.1
     var splitNumber = 2.0
+    var splitAmount = 0.0
+    var totalPerPerson = "0.0"
     
     @IBAction func tipChanged(_ sender: UIButton) {
         zeroPctButton.isSelected = false
@@ -47,8 +49,19 @@ class CalculatorViewController: UIViewController {
         let tipAmount = (billTotal! * tipPctSelected)
         let billPlusTip = billTotal! + tipAmount
         
-        let splitAmount = billPlusTip / splitNumber
-        print(String(format: "%.2f", splitAmount))
+        splitAmount = billPlusTip / splitNumber
+        totalPerPerson = String(format: "%.2f", splitAmount)
+
+        performSegue(withIdentifier: "goToResults", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults" {
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.totalPerPerson = totalPerPerson
+            destinationVC.totalPeople = String(format: "%.0f", splitNumber)
+            destinationVC.tipAmount = ""
+        }
     }
 }
 
